@@ -1,7 +1,13 @@
 import pygame
-from constants import WIDTH, HEIGHT, FPS, STEP_TEXT, INDENT
+import pygame_gui
+
+from constants import WIDTH, HEIGHT, FPS, STEP_TEXT, INDENT, SIZE
 from terminate import terminate
 from util import load_image
+
+BUTTON_SIZE = BUTTON_WIDTH, BUTTON_HEIGHT = (250, 50)
+
+
 
 
 def start_screen(screen):
@@ -19,10 +25,39 @@ def start_screen(screen):
         text_coord += intro_rect.height + STEP_TEXT
         screen.blit(string_rendered, intro_rect)
 
+    manager = pygame_gui.UIManager(SIZE)
     clock = pygame.time.Clock()
+
+    start_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, 250), (BUTTON_WIDTH, BUTTON_HEIGHT)),
+        text='СТАРТ',
+        manager=manager
+    )
+
+    inventory_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, 350), (BUTTON_WIDTH, BUTTON_HEIGHT)),
+        text='ИНВЕНТАРЬ',
+        manager=manager
+        
+    )
+
+    settings_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, 450), (BUTTON_WIDTH, BUTTON_HEIGHT)),
+        text='НАСТРОЙКИ',
+        manager=manager
+    )
+
+
+
     while True:
+        time_delta = clock.tick(60) / 1000.0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
+            if event.type == pygame.USEREVENT:
+                pass
+            manager.process_events(event)
+        manager.update(time_delta)
+        manager.draw_ui(screen)
         pygame.display.flip()
         clock.tick(FPS)
