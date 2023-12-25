@@ -2,12 +2,13 @@ import pygame
 import pygame_gui
 
 from constants import WIDTH, HEIGHT, FPS, STEP_TEXT, INDENT, SIZE
+from game_screen import start_game
+from inventory_screen import inventory_screen
+from settings_screen import settings_screen
 from terminate import terminate
 from util import load_image
 
 BUTTON_SIZE = BUTTON_WIDTH, BUTTON_HEIGHT = (250, 50)
-
-
 
 
 def start_screen(screen):
@@ -38,7 +39,7 @@ def start_screen(screen):
         relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, 350), (BUTTON_WIDTH, BUTTON_HEIGHT)),
         text='ИНВЕНТАРЬ',
         manager=manager
-        
+
     )
 
     settings_button = pygame_gui.elements.UIButton(
@@ -46,16 +47,22 @@ def start_screen(screen):
         text='НАСТРОЙКИ',
         manager=manager
     )
-
-
-
+    buttons = start_button, settings_button, inventory_button
     while True:
         time_delta = clock.tick(60) / 1000.0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
             if event.type == pygame.USEREVENT:
-                pass
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == start_button:
+                        start_game(screen)
+                    if event.ui_element == inventory_button:
+                        inventory_screen(screen)
+                    if event.ui_element == settings_button:
+                        settings_screen(screen)
+                    for button in buttons:
+                        button.hide()
             manager.process_events(event)
         manager.update(time_delta)
         manager.draw_ui(screen)

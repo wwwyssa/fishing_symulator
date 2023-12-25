@@ -5,9 +5,9 @@ from constants import WIDTH, HEIGHT, FPS, STEP_TEXT, INDENT, SIZE
 from terminate import terminate
 from util import load_image
 
-def settings_screen(screen):
-    intro_text = ["Настройки"]
-    fon = pygame.transform.scale(load_image('light_purple.png'), (WIDTH, HEIGHT))
+def inventory_screen(screen):
+    intro_text = ["Инвентарь"]
+    fon = pygame.transform.scale(load_image('Sky_Blue.png'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 60)
     text_coord = INDENT
