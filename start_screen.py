@@ -1,19 +1,20 @@
 import pygame
 import pygame_gui
 
-from constants import WIDTH, HEIGHT, FPS, STEP_TEXT, INDENT, SIZE
+from constants import WIDTH, HEIGHT, FPS, STEP_TEXT, INDENT, SIZE, fon_sound, BUTTON_WIDTH, BUTTON_HEIGHT
 from game_screen import start_game
 from inventory_screen import inventory_screen
 from settings_screen import settings_screen
 from terminate import terminate
 from util import load_image
 
-BUTTON_SIZE = BUTTON_WIDTH, BUTTON_HEIGHT = (250, 50)
+
 
 
 def start_screen(screen):
     intro_text = ["Рыбалка"]
-
+    fon_sound.set_volume(0.5)
+    fon_sound.play()
     fon = pygame.transform.scale(load_image('start_fon.jpg'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 60)
@@ -30,20 +31,20 @@ def start_screen(screen):
     clock = pygame.time.Clock()
 
     start_button = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, 250), (BUTTON_WIDTH, BUTTON_HEIGHT)),
+        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT / 8 * 3), (BUTTON_WIDTH, BUTTON_HEIGHT)),
         text='СТАРТ',
         manager=manager
     )
 
     inventory_button = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, 350), (BUTTON_WIDTH, BUTTON_HEIGHT)),
+        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT / 8 * 4), (BUTTON_WIDTH, BUTTON_HEIGHT)),
         text='ИНВЕНТАРЬ',
         manager=manager
 
     )
 
     settings_button = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, 450), (BUTTON_WIDTH, BUTTON_HEIGHT)),
+        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT / 8 * 5), (BUTTON_WIDTH, BUTTON_HEIGHT)),
         text='НАСТРОЙКИ',
         manager=manager
     )
