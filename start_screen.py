@@ -56,8 +56,8 @@ def start_screen(screen):
                         inventory_screen(screen)
                     if event.ui_element == settings_button:
                         settings_screen(screen)
-                    for button in buttons:
-                        button.hide()
+                        screen.blit(fon, (0, 0))
+                        write_text(screen, intro_text, STEP_TEXT)
             manager.process_events(event)
         manager.update(time_delta)
         manager.update(FPS)
