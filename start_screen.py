@@ -54,6 +54,8 @@ def start_screen(screen):
                         start_game(screen)
                     if event.ui_element == inventory_button:
                         inventory_screen(screen)
+                        screen.blit(fon, (0, 0))
+                        write_text(screen, intro_text, STEP_TEXT)
                     if event.ui_element == settings_button:
                         settings_screen(screen)
                         screen.blit(fon, (0, 0))
