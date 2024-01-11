@@ -12,7 +12,7 @@ from util import load_image, write_text, get_button_coord
 def start_screen(screen):
     intro_text = ["Рыбалка"]
 
-    fon_sound.set_volume(0.5)
+    fon_sound.set_volume(0.0)
     fon_sound.play()
 
     fon = pygame.transform.scale(load_image('start_fon.jpg'), SIZE)

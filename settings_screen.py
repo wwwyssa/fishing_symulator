@@ -21,7 +21,7 @@ def settings_screen(screen):
         text_coord += intro_rect.height + STEP_TEXT
         screen.blit(string_rendered, intro_rect)
     pygame.display.flip()
-    running = True
+
     set_manager = pygame_gui.UIManager(SIZE)
     music_volume_slider = pygame_gui.elements.UIHorizontalSlider(
         relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT / 8 * 2), (BUTTON_WIDTH, BUTTON_HEIGHT)),
@@ -36,6 +36,7 @@ def settings_screen(screen):
         manager=set_manager
     )
     clock = pygame.Clock()
+    running = True
     while running:
         time_delta = clock.tick(60) / 1000.0
         for event in pygame.event.get():
