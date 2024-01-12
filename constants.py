@@ -13,7 +13,10 @@ fon_sound = pygame.mixer.Sound('data/fon_mus.mp3')
 INDENT = 50
 STEP_TEXT = 10
 
-fish_fields = ["image_name", "speed", "cost"]
-fish_descriptions = [{"image_name": "1.png", "speed": 5, "cost": (10, 100)}]
+FISH_SIZE = (150, 85)
+fish_fields = ["image_name", "speed", "cost", "size"]
+fish_descriptions = [{"image_name": "1.png", "speed": 1, "cost": (10, 100)},
+                     {"image_name": "2.png", "speed": 2, "cost": (10, 100)},
+                     {"image_name": "3.png", "speed": 3, "cost": (10, 100)}]
 
-FISH_COUNT = 10
+FISH_COUNT = 5

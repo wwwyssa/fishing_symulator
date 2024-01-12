@@ -3,7 +3,7 @@ import random
 import pygame
 import os
 
-from constants import fish_descriptions, SCREEN_RECT
+from constants import fish_descriptions, SCREEN_RECT, FISH_SIZE
 from util import load_image
 
 
@@ -17,8 +17,8 @@ class Fish(pygame.sprite.Sprite):
         fish = fish_descriptions[self.type]
         if self.fish_pictures[fish["image_name"]] is None:
             self.fish_pictures[fish["image_name"]] = load_image(f'fish/{self.fish_types[self.type]}')
-
-        self.image = self.fish_pictures[fish["image_name"]]
+        if self.fish_pictures[fish["image_name"]] is not None:
+            self.image = pygame.transform.scale(self.fish_pictures[fish["image_name"]], FISH_SIZE)
         self.rect = self.image.get_rect().move(pos_x, pos_y)
         self.speed = fish["speed"]
         self.cost = random.randint(*fish["cost"])
@@ -26,4 +26,4 @@ class Fish(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speed
         if not self.rect.colliderect(SCREEN_RECT):
-            self.kill()
+            self.rect.x = 0
