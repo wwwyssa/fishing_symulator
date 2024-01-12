@@ -7,6 +7,7 @@ from constants import INDENT, WIDTH, BUTTON_WIDTH, HEIGHT
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
+    print(fullname, name)
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")
         sys.exit()
