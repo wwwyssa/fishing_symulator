@@ -35,6 +35,8 @@ def start_game(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                create_fish((random.randint(0, WIDTH), random.randint(0, HEIGHT)), all_sprites)
 
         all_sprites.update()
         screen.blit(fon, (0, 0))
@@ -44,8 +46,3 @@ def start_game(screen):
 
     pygame.quit()
 
-
-pygame.init()
-screen = pygame.display.set_mode(SIZE)
-start_game(screen)
-pygame.quit()
