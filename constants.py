@@ -20,9 +20,13 @@ fish_descriptions = [{'image_name': '1.png', 'speed': (1, -1), 'cost': (10, 100)
                      {'image_name': '3.png', 'speed': (3, -3), 'cost': (10, 100)},
                      {'image_name': '4.png', 'speed': (4, -4), 'cost': (10, 100)},
                      {'image_name': '5.png', 'speed': (5, -5), 'cost': (10, 100)},
-                     {'image_name': '6.png', 'speed': (6, -6), 'cost': (10, 100)},
-                     {'image_name': '7.png', 'speed': (7, -7), 'cost': (10, 100)},
-                     {'image_name': '8.png', 'speed': (8, -8), 'cost': (10, 100)},
-                     {'image_name': '9.png', 'speed': (9, -9), 'cost': (10, 100)}]
+                     {'image_name': '6.png', 'speed': (4, -4), 'cost': (10, 100)},
+                     {'image_name': '7.png', 'speed': (3, -3), 'cost': (10, 100)},
+                     {'image_name': '8.png', 'speed': (2, -2), 'cost': (10, 100)},
+                     {'image_name': '9.png', 'speed': (1, -1), 'cost': (10, 100)}]
 
-FISH_COUNT = 5
+FISH_COUNT = 10
+SCILL = 100
+
+SET_ROD = 0
+SPEED_COIL = [10]

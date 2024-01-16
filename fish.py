@@ -3,7 +3,7 @@ import random
 import pygame
 import os
 
-from constants import fish_descriptions, SCREEN_RECT, FISH_SIZE
+from constants import fish_descriptions, SCREEN_RECT, FISH_SIZE, SPEED_COIL, SET_ROD
 from util import load_image
 
 
@@ -15,6 +15,7 @@ class Fish(pygame.sprite.Sprite):
         super().__init__(*groups)
         self.type = random.randint(0, len(self.fish_types) - 1)
         self.orientation = random.randint(0, 1)
+        self.free = True
         fish = fish_descriptions[self.type]
         self.image_name = fish["image_name"]
         if self.fish_pictures[self.orientation][fish["image_name"]] is None:
@@ -30,7 +31,20 @@ class Fish(pygame.sprite.Sprite):
         self.cost = random.randint(*fish["cost"])
 
     def update(self):
-        self.rect.x += self.speed[self.orientation]
-        if not self.rect.colliderect(SCREEN_RECT):
-            self.orientation ^= 1
-            self.image = self.fish_pictures[self.orientation][self.image_name]
+        if self.free:
+            self.rect.x += self.speed[self.orientation]
+            if not self.rect.colliderect(SCREEN_RECT):
+                self.orientation ^= 1
+                self.image = self.fish_pictures[self.orientation][self.image_name]
+        else:
+            self.rect.x += self.speed[0]
+            self.rect.y += self.speed[1]
+
+    def catch(self):
+        self.free = False
+        print(*self.rect)
+        (x, y, a, b) = self.rect
+        v = SPEED_COIL[SET_ROD]
+        t = ((x * x + y * y) / (v * v))**0.5
+        self.speed = (- int(x / t), - int(y / t))
+        return int(t + 1)
