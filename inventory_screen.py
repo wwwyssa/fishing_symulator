@@ -12,7 +12,6 @@ def money_upd(screen):
     font = pygame.font.Font(None, 60)
     string_rendered = font.render(f'Баланс: {variables.MONEY}', 1, pygame.Color('black'))
     intro_rect = string_rendered.get_rect()
-    pygame.display.flip()
     intro_rect.top = HEIGHT / 10 * 9
     intro_rect.x = WIDTH / 2 - string_rendered.get_width() / 2
     pygame.draw.rect(screen, (135, 206, 235), (0, intro_rect.top, WIDTH, intro_rect.height))
