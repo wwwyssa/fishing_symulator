@@ -48,3 +48,6 @@ class Fish(pygame.sprite.Sprite):
         t = ((x * x + y * y) / (v * v))**0.5
         self.speed = (- int(x / t), - int(y / t))
         return int(t + 1)
+
+    def get_pos(self):
+        return self.rect.x, self.rect.y
