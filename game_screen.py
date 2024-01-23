@@ -3,7 +3,8 @@ import pygame
 import pygame_gui
 
 import variables
-from constants import WIDTH, HEIGHT, STEP_TEXT, INDENT, FISH_COUNT, FPS, SIZE, SCILL, LINE_COLOR, LINE_WIDTH
+from constants import WIDTH, HEIGHT, STEP_TEXT, INDENT, FISH_COUNT, FPS, SIZE, SCILL, LINE_COLOR, LINE_WIDTH, \
+    BEACH_BOTTOM
 from fish import Fish
 from pause import pause
 from util import load_image, write_text
@@ -69,9 +70,8 @@ def start_game(screen):
             if event.type == pygame.MOUSEBUTTONDOWN and fish is None:
                 # create_fish((random.randint(0, WIDTH), random.randint(0, HEIGHT)), all_sprites)
                 fish, time_fishing, cost = get_fish(event.pos, all_sprites)
-                can_fishing, cost = get_fish(event.pos, all_sprites)
                 variables.MONEY += cost
-                print(can_fishing, variables.MONEY)
+                print(time_fishing, variables.MONEY)
 
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
