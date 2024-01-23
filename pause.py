@@ -7,6 +7,7 @@ from util import write_text, get_button_coord
 
 
 def pause(screen):
+    pygame.mouse.set_visible(True)
     intro_text = ["ПАУЗА"]
 
     write_text(screen, intro_text, STEP_TEXT)
