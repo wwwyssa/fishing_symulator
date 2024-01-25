@@ -35,6 +35,7 @@ def pause(screen):
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == continue_button:
+                        pygame.mouse.set_visible(False)
                         return 1
                     if event.ui_element == back_button:
                         return 0

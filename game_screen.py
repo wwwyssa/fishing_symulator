@@ -7,6 +7,7 @@ from constants import WIDTH, HEIGHT, STEP_TEXT, INDENT, FISH_COUNT, FPS, SIZE, S
     BEACH_BOTTOM
 from fish import Fish
 from pause import pause
+from terminate import terminate
 from util import load_image, write_text
 
 
@@ -66,7 +67,7 @@ def start_game(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
+                terminate()
             if event.type == pygame.MOUSEBUTTONDOWN and fish is None:
                 # create_fish((random.randint(0, WIDTH), random.randint(0, HEIGHT)), all_sprites)
                 fish, time_fishing, cost = get_fish(event.pos, all_sprites)
@@ -76,6 +77,7 @@ def start_game(screen):
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == pause_button:
+                        pygame.mouse.set_visible(True)
                         if pause(screen) == 0:
                             fon = pygame.transform.scale(load_image('start_fon.jpg'), SIZE)
                             screen.blit(fon, (0, 0))
