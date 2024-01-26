@@ -3,7 +3,7 @@ import pygame_gui
 
 import constants
 import variables
-from constants import SIZE, STEP_TEXT, BUTTON_SIZE, FPS, HEIGHT, WIDTH, INDENT
+from constants import SIZE, STEP_TEXT, BUTTON_SIZE, FPS, HEIGHT, WIDTH, INDENT, ROD_PRICE
 from terminate import terminate
 from util import load_image, write_text, get_button_coord
 
@@ -16,6 +16,15 @@ def money_upd(screen):
     intro_rect.x = WIDTH / 2 - string_rendered.get_width() / 2
     pygame.draw.rect(screen, (135, 206, 235), (0, intro_rect.top, WIDTH, intro_rect.height))
     screen.blit(string_rendered, intro_rect)
+
+
+def set_useless(i):
+    if i == 0:
+        variables.rod1_text = "Выбрать"
+    elif i == 1:
+        variables.rod2_text = "Выбрать"
+    else:
+        variables.rod3_text = "Выбрать"
 
 
 def inventory_screen(screen):
@@ -76,7 +85,7 @@ def inventory_screen(screen):
     clock = pygame.Clock()
     running = True
     while running:
-        time_delta = clock.tick(60) / 1000.0
+        time_delta = clock.tick(FPS) / 1000.0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
@@ -86,29 +95,36 @@ def inventory_screen(screen):
                         return
                     else:
                         if event.ui_element == rod1_but:
+                            set_useless(variables.cur_rod)
                             variables.cur_rod = 0
+                            variables.rod1_text = 'Выбрано'
                         if event.ui_element == rod2_but:
                             if 1 in variables.bought_rods:
+                                set_useless(variables.cur_rod)
                                 variables.cur_rod = 1
-                            else:
-                                if variables.MONEY >= 10:
-                                    variables.MONEY -= 10
-                                    variables.bought_rods.append(1)
-                                    variables.rod2_text = 'Выбрать'
-                                    rod2_but.set_text(variables.rod2_text)
-                                    money_upd(screen)
-
+                                variables.rod2_text = 'Выбрано'
+                            elif variables.MONEY >= ROD_PRICE[1]:
+                                variables.MONEY -= ROD_PRICE[1]
+                                variables.bought_rods.append(1)
+                                variables.rod2_text = 'Выбрать'
+                                money_upd(screen)
                         if event.ui_element == rod3_but:
                             if 2 in variables.bought_rods:
+                                set_useless(variables.cur_rod)
                                 variables.cur_rod = 2
-                            else:
-                                if variables.MONEY >= 100:
-                                    variables.MONEY -= 100
-                                    variables.rod3_text = 'Выбрать'
-                                    rod3_but.set_text(variables.rod3_text)
-                                    variables.bought_rods.append(2)
-                                    money_upd(screen)
+                                variables.rod3_text = 'Выбрано'
+                            elif variables.MONEY >= ROD_PRICE[2]:
+                                variables.MONEY -= ROD_PRICE[1]
+                                variables.rod3_text = 'Выбрать'
+                                variables.bought_rods.append(2)
+                                money_upd(screen)
+
             set_manager.process_events(event)
+
+        rod1_but.set_text(variables.rod1_text)
+        rod2_but.set_text(variables.rod2_text)
+        rod3_but.set_text(variables.rod3_text)
+
         set_manager.update(time_delta)
         set_manager.update(FPS)
         set_manager.draw_ui(screen)

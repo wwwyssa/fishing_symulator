@@ -4,9 +4,11 @@ import pygame_gui
 
 import variables
 from constants import WIDTH, HEIGHT, STEP_TEXT, INDENT, FISH_COUNT, FPS, SIZE, SCILL, LINE_COLOR, LINE_WIDTH, \
-    BEACH_BOTTOM
+    BEACH_BOTTOM, GAME_TIME
+from finish_screen import finish_screen
 from fish import Fish
 from pause import pause
+from terminate import terminate
 from util import load_image, write_text
 
 
@@ -17,7 +19,7 @@ def is_good_coord(a, b):
 
 def money_upd(screen):
     font = pygame.font.Font(None, 60)
-    string_rendered = font.render(f'Баланс: {variables.MONEY}', 1, pygame.Color('black'))
+    string_rendered = font.render(f'ВЫЛОВЛЕНО НА СУММУ: {variables.CURRENT_MONEY}', True, pygame.Color('black'))
     intro_rect = string_rendered.get_rect()
     intro_rect.top = 0
     intro_rect.x = WIDTH / 2 - string_rendered.get_width() / 2
@@ -61,32 +63,44 @@ def start_game(screen):
     running = True
     pygame.mouse.set_visible(False)
     fish = None
+    start_ticks = pygame.time.get_ticks()
+
+    font = pygame.font.SysFont('Consolas', 30)
+
+    cnt_fish = FISH_COUNT
+
     while running:
         time_delta = clock.tick(FPS) / 1000.0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
+                terminate()
             if event.type == pygame.MOUSEBUTTONDOWN and fish is None:
                 # create_fish((random.randint(0, WIDTH), random.randint(0, HEIGHT)), all_sprites)
                 fish, time_fishing, cost = get_fish(event.pos, all_sprites)
-                variables.MONEY += cost
-                print(time_fishing, variables.MONEY)
+                variables.CURRENT_MONEY += cost
+                cnt_fish -= (cost > 0)
+                # print(time_fishing, variables.MONEY)
 
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == pause_button:
+                        pygame.mouse.set_visible(True)
                         if pause(screen) == 0:
-                            fon = pygame.transform.scale(load_image('start_fon.jpg'), SIZE)
-                            screen.blit(fon, (0, 0))
-                            write_text(screen, ["Рыбалка"], STEP_TEXT)
                             return
 
             manager.process_events(event)
-
         all_sprites.update()
         screen.blit(fon, (0, 0))
         money_upd(screen)
+
+        seconds = (pygame.time.get_ticks() - start_ticks) // 1000
+        if seconds >= GAME_TIME or cnt_fish == 0:
+            finish_screen(screen)
+            return
+
+        text = str(GAME_TIME - seconds)
+        screen.blit(font.render(text, True, (0, 0, 0)), (WIDTH - 100, 10))
 
         manager.update(time_delta)
         manager.update(FPS)

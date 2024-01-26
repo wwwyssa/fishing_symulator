@@ -21,10 +21,17 @@ def settings_screen(screen):
         text_coord += intro_rect.height + STEP_TEXT
         screen.blit(string_rendered, intro_rect)
     pygame.display.flip()
+    string_rendered = font.render('Громкость музыки: ', 1,pygame.Color('black'))
+    text = string_rendered.get_rect()
+    text.top = HEIGHT / 8 * 2
+    text.x = WIDTH // 2 - text.width
+    screen.blit(string_rendered, text)
+
+
 
     set_manager = pygame_gui.UIManager(SIZE)
     music_volume_slider = pygame_gui.elements.UIHorizontalSlider(
-        relative_rect=pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT / 8 * 2), (BUTTON_WIDTH, BUTTON_HEIGHT)),
+        relative_rect=pygame.Rect((WIDTH // 2 , HEIGHT / 8 * 2), (BUTTON_WIDTH, BUTTON_HEIGHT)),
         manager=set_manager,
         start_value=fon_sound.get_volume() * 100,
         value_range=(0, 100)

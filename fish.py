@@ -3,7 +3,8 @@ import random
 import pygame
 import os
 
-from constants import fish_descriptions, SCREEN_RECT, FISH_SIZE, SPEED_COIL, SET_ROD
+import variables
+from constants import fish_descriptions, SCREEN_RECT, FISH_SIZE, SPEED_COIL
 from util import load_image
 
 
@@ -44,8 +45,10 @@ class Fish(pygame.sprite.Sprite):
         self.free = False
         print(*self.rect)
         (x, y, a, b) = self.rect
-        v = SPEED_COIL[SET_ROD]
-        t = ((x * x + y * y) / (v * v))**0.5
+        print(f"CUR ROD = {variables.cur_rod}")
+        v = SPEED_COIL[variables.cur_rod]
+        print(f"SPEED = {v}")
+        t = ((x * x + y * y) / (v * v)) ** 0.5
         self.speed = (- int(x / t), - int(y / t))
         return int(t + 1)
 
