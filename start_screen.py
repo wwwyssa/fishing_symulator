@@ -9,6 +9,9 @@ from settings_screen import settings_screen
 from terminate import terminate
 from util import load_image, write_text, get_button_coord
 
+def upd_balance_text():
+    return f"Ваш баланс: {variables.MONEY}\n"
+
 
 def start_screen(screen):
     intro_text = ["Рыбалка\n", f"Ваш баланс: {variables.MONEY}\n"]
@@ -54,14 +57,18 @@ def start_screen(screen):
                     if event.ui_element == start_button:
                         start_game(screen)
                         screen.blit(fon, (0, 0))
+                        intro_text = ["Рыбалка\n", upd_balance_text()]
                         write_text(screen, intro_text, STEP_TEXT)
+
                     if event.ui_element == inventory_button:
                         inventory_screen(screen)
                         screen.blit(fon, (0, 0))
+                        intro_text = ["Рыбалка\n", upd_balance_text()]
                         write_text(screen, intro_text, STEP_TEXT)
                     if event.ui_element == settings_button:
                         settings_screen(screen)
                         screen.blit(fon, (0, 0))
+                        intro_text = ["Рыбалка\n", upd_balance_text()]
                         write_text(screen, intro_text, STEP_TEXT)
             manager.process_events(event)
         manager.update(time_delta)
