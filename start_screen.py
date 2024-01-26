@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 
+import variables
 from constants import FPS, STEP_TEXT, SIZE, fon_sound, BUTTON_SIZE
 from game_screen import start_game
 from inventory_screen import inventory_screen
@@ -10,7 +11,7 @@ from util import load_image, write_text, get_button_coord
 
 
 def start_screen(screen):
-    intro_text = ["Рыбалка"]
+    intro_text = ["Рыбалка\n", f"Ваш баланс: {variables.MONEY}\n"]
 
     fon_sound.set_volume(0.0)
     fon_sound.play()
@@ -52,6 +53,8 @@ def start_screen(screen):
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == start_button:
                         start_game(screen)
+                        screen.blit(fon, (0, 0))
+                        write_text(screen, intro_text, STEP_TEXT)
                     if event.ui_element == inventory_button:
                         inventory_screen(screen)
                         screen.blit(fon, (0, 0))

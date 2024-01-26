@@ -1,3 +1,6 @@
+from constants import ROD_PRICE
+
+
 def save_money():
     with open('money.txt', '+w', encoding='utf-8') as f:
         f.writelines(str(MONEY))
@@ -30,6 +33,8 @@ def save_progress():
 
 MONEY = get_money()
 bought_rods = get_rods()
+CURRENT_MONEY = 0
 cur_rod = 0
-rod2_text = '10$'
-rod3_text = '100$'
+rod1_text = f'Выбрано' + f'{ROD_PRICE[0]}$' * 0
+rod2_text = f'{ROD_PRICE[1]}$'
+rod3_text = f'{ROD_PRICE[2]}$'
