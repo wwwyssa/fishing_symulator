@@ -39,6 +39,7 @@ def create_fish(position, *groups):
 
 
 def start_game(screen):
+    variables.CURRENT_MONEY = 0
     fon = pygame.transform.scale(load_image('Sky_Blue.png'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
     all_sprites = pygame.sprite.Group()

@@ -36,5 +36,5 @@ bought_rods = get_rods()
 CURRENT_MONEY = 0
 cur_rod = 0
 rod1_text = f'Выбрано' + f'{ROD_PRICE[0]}$' * 0
-rod2_text = f'{ROD_PRICE[1]}$'
-rod3_text = f'{ROD_PRICE[2]}$'
+rod2_text = f'Выбрать' * (1 in bought_rods) + f'{ROD_PRICE[1]}$' * (1 not in bought_rods)
+rod3_text = f'Выбрать' * (2 in bought_rods) + f'{ROD_PRICE[2]}$' * (2 not in bought_rods)
