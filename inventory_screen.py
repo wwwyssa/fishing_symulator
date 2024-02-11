@@ -82,7 +82,7 @@ def inventory_screen(screen):
     screen.blit(fish_rod2, (frame2.x, frame2.y))
     screen.blit(fish_rod3, (frame3.x, frame3.y))
 
-    clock = pygame.Clock()
+    clock = pygame.time.Clock()
     running = True
     while running:
         time_delta = clock.tick(FPS) / 1000.0
