@@ -9,6 +9,7 @@ from settings_screen import settings_screen
 from terminate import terminate
 from util import load_image, write_text, get_button_coord
 
+
 def upd_balance_text():
     return f"Ваш баланс: {variables.MONEY}\n"
 

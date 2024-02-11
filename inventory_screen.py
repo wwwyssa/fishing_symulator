@@ -10,7 +10,7 @@ from util import load_image, write_text, get_button_coord
 
 def money_upd(screen):
     font = pygame.font.Font(None, 60)
-    string_rendered = font.render(f'Баланс: {variables.MONEY}', 1, pygame.Color('black'))
+    string_rendered = font.render(f'Баланс: {variables.MONEY}', True, pygame.Color('black'))
     intro_rect = string_rendered.get_rect()
     intro_rect.top = HEIGHT / 10 * 9
     intro_rect.x = WIDTH / 2 - string_rendered.get_width() / 2
@@ -107,24 +107,23 @@ def inventory_screen(screen):
                                 variables.MONEY -= ROD_PRICE[1]
                                 variables.bought_rods.append(1)
                                 variables.rod2_text = 'Выбрать'
-                                money_upd(screen)
+                            money_upd(screen)
                         if event.ui_element == rod3_but:
                             if 2 in variables.bought_rods:
                                 set_useless(variables.cur_rod)
                                 variables.cur_rod = 2
                                 variables.rod3_text = 'Выбрано'
                             elif variables.MONEY >= ROD_PRICE[2]:
-                                variables.MONEY -= ROD_PRICE[1]
+                                variables.MONEY -= ROD_PRICE[2]
                                 variables.rod3_text = 'Выбрать'
                                 variables.bought_rods.append(2)
-                                money_upd(screen)
-
+                            money_upd(screen)
+                print(variables.MONEY)
             set_manager.process_events(event)
 
         rod1_but.set_text(variables.rod1_text)
         rod2_but.set_text(variables.rod2_text)
         rod3_but.set_text(variables.rod3_text)
-
         set_manager.update(time_delta)
         set_manager.update(FPS)
         set_manager.draw_ui(screen)

@@ -20,17 +20,20 @@ def pause(screen):
 
     manager = pygame_gui.UIManager(SIZE)
     clock = pygame.time.Clock()
+
     continue_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(get_button_coord(4), BUTTON_SIZE),
         text='Продолжить',
         manager=manager
     )
+
     back_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(get_button_coord(5), BUTTON_SIZE),
         text='На главный экран',
         manager=manager
 
     )
+
     while True:
         time_delta = clock.tick(FPS) / 1000
         for event in pygame.event.get():
